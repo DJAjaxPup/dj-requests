@@ -49,6 +49,20 @@
       Send Request
     </button>
   </form>
+  <script>
+  const form = document.querySelector('form');
+  form.addEventListener('submit', e => {
+    e.preventDefault();               // stop default email submission
+    const song = form.song.value;     // grab the input
+    const timestamp = Date.now();     
+    db.ref('requests/' + timestamp).set({ song, timestamp })
+      .then(() => {
+        alert('Request sent! 🎉');
+        form.reset();
+      })
+      .catch(err => alert('Oops: ' + err.message));
+  });
+</script>
 </body>
 </html>
 
