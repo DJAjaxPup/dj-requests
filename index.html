@@ -6,6 +6,23 @@
   <title>DJ Ajax's BarkBeats Requests</title>
   <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwind.com"></script>
+  <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script>
+   const firebaseConfig = {
+    apiKey: "AIzaSyCAK5dwItyD_B_tK6Ek6020tPH9Z7rHjLs",
+    authDomain: "barkbeats-requests.firebaseapp.com",
+    databaseURL: "https://barkbeats-requests-default-rtdb.firebaseio.com",
+    projectId: "barkbeats-requests",
+    storageBucket: "barkbeats-requests.firebasestorage.app",
+    messagingSenderId: "101780516849",
+    appId: "1:101780516849:web:b39dac07d8094660be5e50"
+  };
+  const firebaseConfig = { /* …your copied config… */ };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+</script>
 </head>
 <body class="bg-gray-900 text-white font-sans flex flex-col items-center min-h-screen py-12">
   <h1 class="text-4xl font-bold mb-4">🎧 DJ Dog’s BarkBeats</h1>
