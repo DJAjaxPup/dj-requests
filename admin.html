@@ -29,7 +29,7 @@
     <ul id="requestsList" class="space-y-4"></ul>
   </div>
 
-  <script>
+   <script>
     const listEl = document.getElementById('requestsList');
 
     db.ref('requests').orderByChild('timestamp')
@@ -40,15 +40,35 @@
         // create list item
         const li = document.createElement('li');
         li.className = 'p-4 bg-white rounded shadow flex justify-between items-center';
+        li.id = snapshot.key;  // so we can reference it later
 
         li.innerHTML = `
-          <span class="font-medium">🎶 ${song}</span>
-          <span class="text-gray-500 text-sm">${time}</span>
+          <div>
+            <span class="font-medium">🎶 ${song}</span>
+            <span class="text-gray-500 text-sm ml-2">${time}</span>
+          </div>
+          <button data-key="${snapshot.key}" class="mark-played bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
+            ✓ Played
+          </button>
         `;
 
         // add to top
         listEl.insertBefore(li, listEl.firstChild);
       });
+
+    // Delegate clicks on “Played” buttons
+    listEl.addEventListener('click', e => {
+      if (!e.target.matches('.mark-played')) return;
+      const key = e.target.dataset.key;
+      // remove from Firebase
+      db.ref('requests/' + key).remove()
+        .then(() => {
+          // remove from UI
+          const el = document.getElementById(key);
+          if (el) el.remove();
+        })
+        .catch(err => alert('Error removing request: ' + err.message));
+    });
   </script>
 </body>
 </html>
